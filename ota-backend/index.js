@@ -3,18 +3,20 @@ import { db } from "./connectDB.js";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import cookieParser from "cookie-parser";
-// import cors from 'cors';
+import cors from "cors";
 
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
 // Cấu hình CORS
-// app.use(cors({
-//   origin: 'http://localhost:3000', // Cho phép origin của frontend
-//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//   credentials: true, // Cho phép cookies và headers đặc biệt
-// }));
+app.use(
+  cors({
+    origin: "http://localhost:3000", // Cho phép origin của frontend
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true, // Cho phép cookies và headers đặc biệt
+  })
+);
 
 app.get("/", (req, res) => {
   res.json("This is Backend Server!");
