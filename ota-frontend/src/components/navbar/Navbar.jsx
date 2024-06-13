@@ -32,23 +32,23 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="links">
-          <Link className="link" to="/?cat=art">
-            <h6>Update OTA Firmware</h6>
+          <Link className="link" to="/">
+            <h6>Dashboard</h6>
           </Link>
           <Link className="link" to="/?cat=science">
-            <h6>Manage Device</h6>
+            <h6>Devices</h6>
           </Link>
           <Link className="link" to="/?cat=technology">
-            <h6>TECHNOLOGY</h6>
+            <h6>Campaigns</h6>
           </Link>
-          <Link className="link" to="/?cat=cinema">
-            <h6>Products</h6>
+          <Link className="link" to="/upload-file">
+            <h6>Import OTA File</h6>
           </Link>
           <Link className="link" to="/?cat=design">
-            <h6>Import OTA Package</h6>
+            <h6>Download OTA file</h6>
           </Link>
-          <Link className="link" to="/?cat=food">
-            <h6>More Information</h6>
+          <Link className="link" to="/versions">
+            <h6>All Update Versions</h6>
           </Link>
           {/* <span>{currentUser?.username}</span> */}
           {/* {currentUser ? (

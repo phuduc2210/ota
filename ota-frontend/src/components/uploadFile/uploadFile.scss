@@ -1,0 +1,11 @@
+.form-submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  .submit-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

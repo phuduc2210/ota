@@ -10,4 +10,15 @@ const getLatestVersion = (callback) => {
   db.query(query, callback);
 };
 
-export { createVersion, getLatestVersion };
+const getAllVersions = (req, res) => {
+  const query = "SELECT * FROM versions";
+  db.query(query, (err, data) => {
+    if (err) {
+      console.log(err);
+      return res.json(err);
+    }
+    return res.json(data);
+  });
+};
+
+export { createVersion, getLatestVersion, getAllVersions };
