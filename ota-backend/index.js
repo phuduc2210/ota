@@ -46,6 +46,8 @@ app.get("/users", (req, res) => {
   });
 });
 
+app.use("/public", express.static(path.join(__dirname, "public")));
+
 app.use("/uploads", express.static("uploads"));
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);

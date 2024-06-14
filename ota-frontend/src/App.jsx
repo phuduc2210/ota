@@ -7,6 +7,7 @@ import Navbar from "./components/navbar/Navbar";
 import Footer from "./components/footer/Footer";
 import Versions from "./components/versions/Versions";
 import UploadFile from "./components/uploadFile/UploadFile";
+import DownloadFile from "./components/downloadFile/DownloadFile";
 
 const Layout = () => {
   return (
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: "/upload-file",
         element: <UploadFile />,
+      },
+      {
+        path: "/download-file",
+        element: <DownloadFile />,
       },
     ],
   },

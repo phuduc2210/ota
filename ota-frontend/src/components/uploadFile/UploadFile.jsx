@@ -1,11 +1,25 @@
 import { Button, TextField } from "@mui/material";
 import { useRef, useState } from "react";
+import { styled } from "@mui/material/styles";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import "./uploadFile.scss";
 import axiosInstance from "../../../axiosConfig";
 
+const VisuallyHiddenInput = styled("input")({
+  clip: "rect(0 0 0 0)",
+  clipPath: "inset(50%)",
+  height: 1,
+  overflow: "hidden",
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  whiteSpace: "nowrap",
+  width: 1,
+});
 const UploadFile = () => {
-  const [file, setFile] = useState();
-  const {versionRef} = useRef()
+  const [file, setFile] = useState(null);
+  const versionRef = useRef();
+  // console.log("version", versionRef.current.value);
   const handleFileUpload = async (e) => {
     const uploadFile = e.target.files[0];
     setFile(uploadFile);
@@ -18,14 +32,14 @@ const UploadFile = () => {
     formData.append("apk", file);
 
     try {
-      await axiosInstance.post("/update/upload", formData, {
+      const response = await axiosInstance.post("/update/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log("File uploaded successfully");
+      console.log("File uploaded successfully", response.data);
     } catch (err) {
-      console.log(err);
+      console.error("Error uploading file", err);
     }
   };
 
@@ -37,13 +51,27 @@ const UploadFile = () => {
           <TextField
             id="outlined-multiline-flexible"
             label="Version"
-            multiline
-            maxRows={4}
-            ref={versionRef}
+            inputRef={versionRef}
           />
-          <input type="file" onChange={(e) => handleFileUpload(e)} />
+          <Button
+            component="label"
+            role={undefined}
+            variant="contained"
+            tabIndex={-1}
+            startIcon={<CloudUploadIcon />}
+          >
+            Import file
+            <VisuallyHiddenInput
+              type="file"
+              onChange={(e) => handleFileUpload(e)}
+            />
+          </Button>
         </div>
-        <Button variant="contained" type="submit" className="submit-btn">
+        <Button
+          variant="contained"
+          type="submit"
+          sx={{ marginLeft: "50%", marginTop: "20px" }}
+        >
           Upload
         </Button>
       </form>

@@ -19,7 +19,7 @@ const Navbar = () => {
     };
     fetchAllUser();
   }, []);
-  console.log("users", users);
+
   return (
     <div className="navbar">
       <div className="container">
@@ -44,7 +44,7 @@ const Navbar = () => {
           <Link className="link" to="/upload-file">
             <h6>Import OTA File</h6>
           </Link>
-          <Link className="link" to="/?cat=design">
+          <Link className="link" to="/download-file">
             <h6>Download OTA file</h6>
           </Link>
           <Link className="link" to="/versions">

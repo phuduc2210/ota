@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../../../axiosConfig";
+import "../versions/versions.scss";
 import {
+  Button,
   Paper,
   Table,
   TableBody,
@@ -9,17 +11,17 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import "./versions.scss";
 import moment from "moment/moment";
+import DownloadIcon from "@mui/icons-material/Download";
 
-const Versions = () => {
-  const [allVersions, setAllVersions] = useState([]);
+const DownloadFile = () => {
+  const [otaFiles, setOtaFiles] = useState([]);
 
   useEffect(() => {
     const fetchAllVersions = async () => {
       try {
         const res = await axiosInstance.get("/update/all-versions");
-        setAllVersions(res.data);
+        setOtaFiles(res.data);
       } catch (err) {
         console.log(err);
       }
@@ -27,8 +29,17 @@ const Versions = () => {
     fetchAllVersions();
   }, []);
 
+  const handleDownload = async (fileName) => {
+    try {
+      await axiosInstance.get(`/update/download/${fileName}`);
+      console.log("Download file successfully!");
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <>
+      <h2>Download OTA File</h2>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
           <TableHead className="table-columns">
@@ -37,9 +48,10 @@ const Versions = () => {
               <TableCell align="right">Version</TableCell>
               <TableCell align="right">Size</TableCell>
               <TableCell align="right">Created at</TableCell>
+              <TableCell align="right">Download</TableCell>
             </TableRow>
           </TableHead>
-          {allVersions.map((row) => (
+          {otaFiles.map((row) => (
             <TableBody key={row.id}>
               <TableRow
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -56,6 +68,18 @@ const Versions = () => {
                 <TableCell align="right">
                   {moment(row.created_at).format("DD/MM/YYYY HH:mm:ss")}
                 </TableCell>
+                <TableCell align="right">
+                  <Button
+                    component="label"
+                    role={undefined}
+                    variant="contained"
+                    tabIndex={-1}
+                    startIcon={<DownloadIcon />}
+                    onClick={() => handleDownload(row.file_name)}
+                  >
+                    Download
+                  </Button>
+                </TableCell>
               </TableRow>
             </TableBody>
           ))}
@@ -65,4 +89,4 @@ const Versions = () => {
   );
 };
 
-export default Versions;
+export default DownloadFile;
