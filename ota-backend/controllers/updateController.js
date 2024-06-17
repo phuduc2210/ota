@@ -60,18 +60,9 @@ const getLatestVersionInfo = (req, res) => {
 
 export const downloadUpdate = (req, res) => {
   const { filename } = req.params;
-  console.log("params", req.params);
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
   const filePath = path.join(__dirname, "../public/images", filename);
-  console.log("file path", filePath);
-  // var mimetype = mime.getType(filename);
-  // res.setHeader("Content-disposition", "attachment; filename=" + filename);
-  // res.setHeader("Content-type", mimetype);
-  // console.log("file name: ", filename);
-  // console.log("Downloading file from:", filePath);
-  // var filestream = fs.createReadStream(filename);
-  // filestream.pipe(res);
 
   res.download(filePath, filename, (err) => {
     if (err) {

@@ -12,6 +12,7 @@ import {
   TableRow,
 } from "@mui/material";
 import moment from "moment/moment";
+import { saveAs } from "file-saver";
 import DownloadIcon from "@mui/icons-material/Download";
 
 const DownloadFile = () => {
@@ -31,7 +32,11 @@ const DownloadFile = () => {
 
   const handleDownload = async (fileName) => {
     try {
-      await axiosInstance.get(`/update/download/${fileName}`);
+      const response = await axiosInstance.get(`/update/download/${fileName}`, {
+        responseType: "blob",
+      });
+      const blob = new Blob([response.data], { type: response.data.type });
+      saveAs(blob, fileName);
       console.log("Download file successfully!");
     } catch (err) {
       console.log(err);
